@@ -1,0 +1,10 @@
+{
+  "name": "StyleTransfer_Video_copy_copy_2020_03_30_01_33_22",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.13.4",
+    "koa-static": "^5.0.0"
+  }
+}
