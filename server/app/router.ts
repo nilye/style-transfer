@@ -6,4 +6,5 @@ export default (app: Application) => {
   router.get('/', controller.home.index);
 
   router.post('/auth/sign', controller.auth.sign);
+  router.post('/oss/sign', controller.oss.sign)
 };

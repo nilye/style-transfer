@@ -1,5 +1,11 @@
 import Controller from "./base";
 
+const methodRule = {
+  type:"enum",
+  required: true,
+  values: ["PUT","POST", "GET"],
+}
+
 export default class OssController extends Controller {
   public async sign(){
     const { ctx, config } = this;
@@ -10,7 +16,8 @@ export default class OssController extends Controller {
         values: ["PUT","POST", "GET"],
       },
       headers: {
-        type: "object"
+        type: "object",
+        required: false,
       },
       resourcePath: {
         type: "string",
@@ -21,6 +28,8 @@ export default class OssController extends Controller {
 
     const { method, headers, resourcePath } = ctx.request.body
 
-    // const {} = this.ctx.service.oss.signAuthorization(method,headers, resourcePath)
+    const data = this.ctx.service.oss.signAuthorization(method,headers, resourcePath)
+
+    this.success(data)
   }
 }
