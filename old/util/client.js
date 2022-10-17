@@ -162,7 +162,8 @@ proto.authorization = function authorization(
     }
   );
 
-  return signUtils.authorization(
+  return signUtils.
+  (
     this.options.accessKeyId,
     this.options.accessKeySecret,
     stringToSign,

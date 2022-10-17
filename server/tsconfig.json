@@ -1,0 +1,11 @@
+{
+  "extends": "@eggjs/tsconfig",
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "exclude": [
+    "app/public",
+    "app/views",
+    "node_modules*"
+  ]
+}
