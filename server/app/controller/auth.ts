@@ -1,8 +1,9 @@
 import Controller from './base';
 
-export default class AutgController extends Controller {
+export default class AuthController extends Controller {
   public async sign() {
     const { ctx, config } = this;
+
     ctx.validate({
       id: {
         type: 'int',

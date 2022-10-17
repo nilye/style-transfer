@@ -3,10 +3,11 @@ import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 
 
 export default (appInfo: EggAppInfo) => {
-  const envConfig = dotenv.config().parsed;
+  const envConfig = dotenv.config().parsed || {};
 
   const config = {
     ...envConfig,
+    env: envConfig.NODE_ENV || "dev"
   } as PowerPartial<EggAppConfig>;
 
 

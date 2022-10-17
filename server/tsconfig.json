@@ -1,7 +1,10 @@
 {
   "extends": "@eggjs/tsconfig",
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "strict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
   },
   "exclude": [
     "app/public",
