@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
+import { VerifyJwtOptions } from '../app/middleware/verifyJwt';
 
 
 export default (appInfo: EggAppInfo) => {
@@ -7,8 +8,10 @@ export default (appInfo: EggAppInfo) => {
 
   const config = {
     ...envConfig,
-    env: envConfig.NODE_ENV || "dev"
-  } as PowerPartial<EggAppConfig>;
+    env: envConfig.NODE_ENV || 'dev',
+  } as PowerPartial<EggAppConfig & {
+    verifyJwt: VerifyJwtOptions
+  }>;
 
 
   // override config from framework / plugin
@@ -16,7 +19,11 @@ export default (appInfo: EggAppInfo) => {
   config.keys = envConfig?.ACCESS_KEY_SECRET || appInfo.name;
 
   // add your egg config in here
-  config.middleware = [];
+  config.middleware = [ 'verifyJwt' ];
+  config.verifyJwt = {
+    secret: envConfig.AUTH_SECRET,
+    passThrough: [ '/auth/sign' ],
+  };
 
 
   // on error
@@ -25,9 +32,20 @@ export default (appInfo: EggAppInfo) => {
   // the return config will combines to EggAppConfig
   return {
     ...config,
+    cors: {
+      origin: '*',
+      allowMethods: '*',
+      allowHeaders: [ 'Content-Type', 'Origin', 'Accept', 'Authorization' ],
+    },
+    security: {
+      csrf: {
+        enable: false,
+      },
+    },
     cluster: {
       listen: {
         port: 3100,
+        hostname: '127.0.0.1',
       },
     },
   };

@@ -4,6 +4,10 @@ class App {
   constructor(app) {
     this.app = app;
   }
+
+  didLoad() {
+
+  }
 }
 
 

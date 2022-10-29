@@ -2,9 +2,11 @@ import { Service } from 'egg';
 import jwt from 'jsonwebtoken';
 
 export default class AuthService extends Service {
-  signJwt(id: string | number) {
+
+  signJwt(bucket: string, client: string) {
     const payload = {
-      id,
+      bucket,
+      client,
     };
     return jwt.sign(payload, this.config.AUTH_SECRET, {
       expiresIn: '5y',

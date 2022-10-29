@@ -1,27 +1,31 @@
 import { Controller as BaseController } from 'egg';
+import ResponseCode from '../util/repsonseCode';
 
 class Controller extends BaseController {
 
   success(data) {
     this.ctx.body = {
-      code: 0,
+      code: ResponseCode.OK,
       message: 'success',
       data,
     };
+    this.ctx.status = 200;
   }
 
-  badRequest(code = 1, message = 'bad request') {
+  badRequest(code = ResponseCode.BAD_REQUEST, message = 'bad request') {
     this.ctx.body = {
       code,
       message,
     };
+    this.ctx.status = 400;
   }
 
-  unauthorize() {
+  unauthorized() {
     this.ctx.body = {
-      code: 2,
+      code: ResponseCode.UNAUTORIZED,
       message: 'unauthorized',
     };
+    this.ctx.status = 401;
   }
 
 }

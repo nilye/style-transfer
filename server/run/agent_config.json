@@ -89,7 +89,7 @@
     "onerror": {
       "errorPageUrl": "",
       "appErrorFilter": null,
-      "templatePath": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-onerror/lib/onerror_page.mustache"
+      "templatePath": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-onerror\\lib\\onerror_page.mustache"
     },
     "i18n": {
       "defaultLocale": "en_US",
@@ -100,10 +100,10 @@
       "cookieMaxAge": "1y"
     },
     "watcher": {
-      "type": "development",
+      "type": "default",
       "eventSources": {
-        "default": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-watcher/lib/event-sources/default",
-        "development": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-watcher/lib/event-sources/development"
+        "default": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-watcher\\lib\\event-sources\\default",
+        "development": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-watcher\\lib\\event-sources\\development"
       }
     },
     "customLogger": {
@@ -127,19 +127,11 @@
       "fileExtensions": [],
       "whitelist": null,
       "allowArrayField": false,
-      "tmpdir": "/var/folders/rp/5w35spf14fd82sh28b9f5xcm0000gn/T/egg-multipart-tmp/ai-style-transfer-server",
+      "tmpdir": "C:\\Users\\NILYE\\x7e1\\AppData\\Local\\Temp\\egg-multipart-tmp\\ai-style-transfer-server",
       "cleanSchedule": {
         "cron": "0 30 4 * * *",
         "disable": false
       }
-    },
-    "development": {
-      "watchDirs": [],
-      "ignoreDirs": [],
-      "fastReady": false,
-      "reloadOnDebug": true,
-      "overrideDefault": false,
-      "overrideIgnore": false
     },
     "logrotator": {
       "filesRotateByHour": null,
@@ -152,23 +144,23 @@
     },
     "static": {
       "prefix": "/public/",
-      "dir": "/Users/nil/Desktop/proj/style-transfer/server/app/public",
+      "dir": "D:\\Documents\\projects\\ai-style-transfer\\server\\app\\public",
       "dynamic": true,
       "preload": false,
-      "buffer": false,
-      "maxFiles": 1000
+      "buffer": true,
+      "maxFiles": 1000,
+      "maxAge": 31536000
     },
     "view": {
-      "root": "/Users/nil/Desktop/proj/style-transfer/server/app/view",
-      "cache": false,
+      "root": "D:\\Documents\\projects\\ai-style-transfer\\server\\app\\view",
+      "cache": true,
       "defaultExtension": ".html",
       "defaultViewEngine": "",
       "mapping": {}
     },
-    "validate": {},
-    "env": "dev",
+    "env": "prod",
     "name": "ai-style-transfer-server",
-    "keys": "<String len: 30>",
+    "keys": "<String len: 0>",
     "cookies": {},
     "proxy": false,
     "maxIpsCount": 0,
@@ -186,25 +178,28 @@
         "declarations": true
       },
       "scripts": {
-        "start": "egg-scripts start --daemon --title=egg-server-server",
+        "start": "egg-scripts start --title=egg-server-server --port=3100 --workers=2",
         "stop": "egg-scripts stop --title=egg-server-server",
         "dev": "egg-bin dev",
         "debug": "egg-bin debug",
         "test-local": "egg-bin test",
         "test": "npm run lint -- --fix && npm run test-local",
         "cov": "egg-bin cov",
-        "tsc": "ets && tsc -p tsconfig.json",
+        "tsc": "ets && tsc -p tsconfig.json ",
         "ci": "npm run lint && npm run cov && npm run tsc",
         "autod": "autod",
         "lint": "eslint . --ext .ts --resolve-plugins-relative-to .",
-        "clean": "ets clean"
+        "clean": "tsc -b --clean"
       },
       "dependencies": {
         "dotenv": "^16.0.3",
         "egg": "^2.6.1",
+        "egg-cors": "^2.2.3",
         "egg-scripts": "^2.6.0",
         "egg-validate": "^2.0.2",
-        "jsonwebtoken": "^8.5.1"
+        "jsonwebtoken": "^8.5.1",
+        "lodash": "^4.17.21",
+        "nanoid": "3.3.4"
       },
       "devDependencies": {
         "@eggjs/tsconfig": "^1.0.0",
@@ -236,9 +231,9 @@
       "author": "",
       "license": "MIT"
     },
-    "baseDir": "/Users/nil/Desktop/proj/style-transfer/server",
-    "HOME": "/Users/nil",
-    "rundir": "/Users/nil/Desktop/proj/style-transfer/server/run",
+    "baseDir": "D:\\Documents\\projects\\ai-style-transfer\\server",
+    "HOME": "C:\\Users\\Nil Ye",
+    "rundir": "D:\\Documents\\projects\\ai-style-transfer\\server\\run",
     "dump": {
       "ignore": "<Set>"
     },
@@ -271,21 +266,19 @@
       "onerror": "<Function onerror>"
     },
     "logger": {
-      "dir": "/Users/nil/Desktop/proj/style-transfer/server/logs/ai-style-transfer-server",
+      "dir": "C:\\Users\\Nil Ye\\logs\\ai-style-transfer-server",
       "encoding": "utf8",
-      "env": "local",
+      "env": "prod",
       "level": "INFO",
       "consoleLevel": "INFO",
-      "disableConsoleAfterReady": false,
+      "disableConsoleAfterReady": true,
       "outputJSON": false,
       "buffer": true,
       "appLogName": "ai-style-transfer-server-web.log",
       "coreLogName": "egg-web.log",
       "agentLogName": "egg-agent.log",
       "errorLogName": "common-error.log",
-      "coreLogger": {
-        "consoleLevel": "WARN"
-      },
+      "coreLogger": {},
       "allowDebugAtProd": false,
       "enablePerformanceTimer": false,
       "type": "agent"
@@ -326,7 +319,7 @@
     "cluster": {
       "listen": {
         "path": "",
-        "port": 3100,
+        "port": 7001,
         "hostname": ""
       }
     },
@@ -335,14 +328,9 @@
       "responseTimeout": 60000
     },
     "onClientError": null,
-    "AUTH_SECRET": "<String len: 5>",
-    "ACCESS_KEY_ID": "LTAI5tSFSxxEFW1LQdh2n8C3",
-    "ACCESS_KEY_SECRET": "<String len: 30>",
-    "NODE_ENV": "dev",
-    "middleware": [],
     "coreMiddlewares": "~config~coreMiddleware",
-    "appMiddlewares": "~config~middleware",
-    "appMiddleware": "~config~middleware"
+    "appMiddlewares": [],
+    "appMiddleware": "~config~appMiddlewares"
   },
   "plugins": {
     "onerror": {
@@ -354,8 +342,8 @@
         "jsonp"
       ],
       "env": [],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg/config/plugin.js",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-onerror",
+      "from": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\plugin.js",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-onerror",
       "version": "2.1.1"
     },
     "session": {
@@ -365,8 +353,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg/config/plugin.js",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-session",
+      "from": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\plugin.js",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-session",
       "version": "3.3.0"
     },
     "i18n": {
@@ -376,8 +364,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg/config/plugin.js",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-i18n",
+      "from": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\plugin.js",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-i18n",
       "version": "2.1.1"
     },
     "watcher": {
@@ -387,12 +375,9 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg/config/plugin.js",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-watcher",
-      "version": "3.1.1",
-      "dependents": [
-        "development"
-      ]
+      "from": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\plugin.js",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-watcher",
+      "version": "3.1.1"
     },
     "multipart": {
       "enable": true,
@@ -403,8 +388,8 @@
         "schedule"
       ],
       "env": [],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg/config/plugin.js",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-multipart",
+      "from": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\plugin.js",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-multipart",
       "version": "2.13.1"
     },
     "security": {
@@ -416,12 +401,12 @@
         "session"
       ],
       "env": [],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg/config/plugin.js",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-security",
+      "from": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\plugin.js",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security",
       "version": "2.11.0"
     },
     "development": {
-      "enable": true,
+      "enable": false,
       "package": "egg-development",
       "name": "development",
       "dependencies": [
@@ -431,8 +416,8 @@
       "env": [
         "local"
       ],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg/config/plugin.js",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-development",
+      "from": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\plugin.js",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-development",
       "version": "2.7.0"
     },
     "logrotator": {
@@ -444,8 +429,8 @@
       ],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg/config/plugin.js",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-logrotator",
+      "from": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\plugin.js",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-logrotator",
       "version": "3.1.0"
     },
     "schedule": {
@@ -455,8 +440,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg/config/plugin.js",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-schedule",
+      "from": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\plugin.js",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-schedule",
       "version": "3.7.0",
       "dependents": [
         "logrotator"
@@ -469,8 +454,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg/config/plugin.js",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-static",
+      "from": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\plugin.js",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-static",
       "version": "2.2.0"
     },
     "jsonp": {
@@ -482,8 +467,8 @@
         "security"
       ],
       "env": [],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg/config/plugin.js",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-jsonp",
+      "from": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\plugin.js",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-jsonp",
       "version": "2.0.0"
     },
     "view": {
@@ -493,28 +478,17 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg/config/plugin.js",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-view",
+      "from": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\plugin.js",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-view",
       "version": "2.1.3"
-    },
-    "validate": {
-      "enable": true,
-      "package": "egg-validate",
-      "name": "validate",
-      "dependencies": [],
-      "optionalDependencies": [],
-      "env": [],
-      "from": "/Users/nil/Desktop/proj/style-transfer/server/config/plugin.ts",
-      "path": "/Users/nil/Desktop/proj/style-transfer/server/node_modules/egg-validate",
-      "version": "2.0.2"
     }
   },
   "appInfo": {
     "name": "ai-style-transfer-server",
-    "baseDir": "/Users/nil/Desktop/proj/style-transfer/server",
-    "env": "local",
+    "baseDir": "D:\\Documents\\projects\\ai-style-transfer\\server",
+    "env": "prod",
     "scope": "",
-    "HOME": "/Users/nil",
+    "HOME": "C:\\Users\\Nil Ye",
     "pkg": {
       "name": "ai-style-transfer-server",
       "version": "1.0.0",
@@ -525,25 +499,28 @@
         "declarations": true
       },
       "scripts": {
-        "start": "egg-scripts start --daemon --title=egg-server-server",
+        "start": "egg-scripts start --title=egg-server-server --port=3100 --workers=2",
         "stop": "egg-scripts stop --title=egg-server-server",
         "dev": "egg-bin dev",
         "debug": "egg-bin debug",
         "test-local": "egg-bin test",
         "test": "npm run lint -- --fix && npm run test-local",
         "cov": "egg-bin cov",
-        "tsc": "ets && tsc -p tsconfig.json",
+        "tsc": "ets && tsc -p tsconfig.json ",
         "ci": "npm run lint && npm run cov && npm run tsc",
         "autod": "autod",
         "lint": "eslint . --ext .ts --resolve-plugins-relative-to .",
-        "clean": "ets clean"
+        "clean": "tsc -b --clean"
       },
       "dependencies": {
         "dotenv": "^16.0.3",
         "egg": "^2.6.1",
+        "egg-cors": "^2.2.3",
         "egg-scripts": "^2.6.0",
         "egg-validate": "^2.0.2",
-        "jsonwebtoken": "^8.5.1"
+        "jsonwebtoken": "^8.5.1",
+        "lodash": "^4.17.21",
+        "nanoid": "3.3.4"
       },
       "devDependencies": {
         "@eggjs/tsconfig": "^1.0.0",
@@ -573,6 +550,6 @@
       "author": "",
       "license": "MIT"
     },
-    "root": "/Users/nil/Desktop/proj/style-transfer/server"
+    "root": "C:\\Users\\Nil Ye"
   }
 }

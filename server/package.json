@@ -8,25 +8,28 @@
     "declarations": true
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-server",
+    "start": "egg-scripts start --title=egg-server-server --port=3100 --workers=2",
     "stop": "egg-scripts stop --title=egg-server-server",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
     "test-local": "egg-bin test",
     "test": "npm run lint -- --fix && npm run test-local",
     "cov": "egg-bin cov",
-    "tsc": "ets && tsc -p tsconfig.json",
+    "tsc": "ets && tsc -p tsconfig.json ",
     "ci": "npm run lint && npm run cov && npm run tsc",
     "autod": "autod",
     "lint": "eslint . --ext .ts --resolve-plugins-relative-to .",
-    "clean": "ets clean"
+    "clean": "tsc -b --clean"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
     "egg": "^2.6.1",
+    "egg-cors": "^2.2.3",
     "egg-scripts": "^2.6.0",
     "egg-validate": "^2.0.2",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "nanoid": "3.3.4"
   },
   "devDependencies": {
     "@eggjs/tsconfig": "^1.0.0",

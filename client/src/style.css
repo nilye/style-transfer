@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  background-color: black;
+  position: relative;
+}
+
+#container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#countdown {
+  display: none;
+  font-family: sans-serif;
+  font-size: 72;
+  color: white;
+  position: absolute;
+  bottom: 32;
+  right: 32;
+}

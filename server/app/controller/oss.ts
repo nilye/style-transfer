@@ -1,35 +1,53 @@
-import Controller from "./base";
+import Controller from './base';
 
-const methodRule = {
-  type:"enum",
-  required: true,
-  values: ["PUT","POST", "GET"],
-}
 
 export default class OssController extends Controller {
-  public async sign(){
-    const { ctx, config } = this;
+  public async sign() {
+    const { ctx } = this;
     ctx.validate({
       method: {
-        type:"enum",
+        type: 'enum',
         required: true,
-        values: ["PUT","POST", "GET"],
+        values: [ 'PUT', 'POST', 'GET' ],
       },
       headers: {
-        type: "object",
+        type: 'object',
         required: false,
       },
       resourcePath: {
-        type: "string",
+        type: 'string',
         required: true,
-        format: /^\//
-      }
-    })
+        format: /^\//,
+      },
+    });
 
-    const { method, headers, resourcePath } = ctx.request.body
+    const { method, headers, resourcePath } = ctx.request.body;
 
-    const data = this.ctx.service.oss.signAuthorization(method,headers, resourcePath)
+    const data = this.ctx.service.oss.signAuthorization({
+      method, headers,
+      resourcePath,
+    });
 
-    this.success(data)
+    this.success(data);
+  }
+
+  public async createUpload() {
+    const { ctx } = this;
+    ctx.validate({
+      contentMd5: 'string?',
+      contentType: 'string?',
+    });
+
+    const { contentMd5, contentType } = ctx.request.body;
+    const { bucket, client } = ctx.state.user;
+    console.log(ctx.state.user);
+
+    const data = this.ctx.service.oss.createUpload({
+      contentMd5,
+      contentType,
+      bucket,
+      client,
+    });
+    this.success(data);
   }
 }
