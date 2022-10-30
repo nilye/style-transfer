@@ -12,4 +12,5 @@ export default (app: Application) => {
   router.post('/oss/createUpload', controller.oss.createUpload);
 
   router.post('/wx/qrcode', controller.wx.stQrcode);
+  router.get('/wx/callback', controller.wx.verifyWxServer);
 };

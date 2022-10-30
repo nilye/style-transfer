@@ -4,12 +4,29 @@
   "AUTH_SECRET": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
   "WX_APP_ID": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
   "WX_APP_SECRET": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+  "WX_CB_TOKEN": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+  "WX_CB_AES_KEY": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
   "env": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
   "keys": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
   "middleware": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
   "verifyJwt": {
     "secret": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
     "passThrough": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts"
+  },
+  "bodyParser": {
+    "enableTypes": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+    "enable": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
+    "encoding": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
+    "formLimit": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
+    "jsonLimit": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
+    "textLimit": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
+    "strict": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
+    "queryString": {
+      "arrayLimit": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
+      "depth": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
+      "parameterLimit": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js"
+    },
+    "onerror": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js"
   },
   "cors": {
     "origin": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
@@ -263,20 +280,6 @@
   "siteFile": {
     "/favicon.ico": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
     "cacheControl": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js"
-  },
-  "bodyParser": {
-    "enable": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-    "encoding": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-    "formLimit": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-    "jsonLimit": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-    "textLimit": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-    "strict": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-    "queryString": {
-      "arrayLimit": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-      "depth": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-      "parameterLimit": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js"
-    },
-    "onerror": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js"
   },
   "logger": {
     "dir": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",

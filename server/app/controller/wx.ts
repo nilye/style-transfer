@@ -20,10 +20,11 @@ export default class WxController extends Controller {
   public async verifyWxServer() {
     const { ctx } = this;
 
-    const result = this.service.wx.verifyServer(ctx.params);
+    console.log('wx query', ctx.query);
+    const result = this.service.wx.verifyServer(ctx.query);
 
     if (result) {
-      ctx.body = ctx.params.echostr;
+      ctx.body = ctx.query.echostr;
       ctx.status = 200;
       return;
     }

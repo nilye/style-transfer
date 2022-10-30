@@ -73,11 +73,14 @@ export default class WxService extends Service {
   }
 
   // 验证微信服务器
-  async verifyServer(params: any) {
-    const { signature, token, timestamp, nonce } = params;
+  verifyServer(params: any) {
+    const token = this.config.WX_CB_TOKEN;
+    const { signature, timestamp, nonce } = params;
     const arr = [ nonce, token, timestamp ].sort();
-    const str = arr.join();
+    const str = arr.join('');
     const encrypted = crypto.createHash('sha1').update(str).digest('hex');
+    console.log(arr, str);
+    console.log(encrypted, signature);
     return encrypted === signature;
   }
 

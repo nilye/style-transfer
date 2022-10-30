@@ -282,7 +282,11 @@
         "depth": 5,
         "parameterLimit": 1000
       },
-      "onerror": "<Function onerror>"
+      "onerror": "<Function onerror>",
+      "enableTypes": [
+        "json",
+        "xml"
+      ]
     },
     "logger": {
       "dir": "D:\\Documents\\projects\\ai-style-transfer\\server\\logs\\ai-style-transfer-server",
@@ -354,6 +358,8 @@
     "AUTH_SECRET": "<String len: 13>",
     "WX_APP_ID": "wx95be785cc4b11d7d",
     "WX_APP_SECRET": "<String len: 32>",
+    "WX_CB_TOKEN": "h6c1hbrl958",
+    "WX_CB_AES_KEY": "vaXQ1fYxQutDcYlmFUfvnJrbErPsxUwbSqMdIdF0ftI",
     "middleware": [
       "verifyJwt"
     ],
