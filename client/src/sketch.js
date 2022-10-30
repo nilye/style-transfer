@@ -18,7 +18,7 @@ const w = 960;
 const h = 720;
 
 const setup = (p) => () => {
-  p5Canvas = p.createCanvas(w, h, "P2D");
+  p5Canvas = p.createCanvas(w, h);
   p.frameRate(24);
 
   video = p.createCapture("VIDEO");
@@ -79,21 +79,14 @@ async function takeImage(e) {
   try {
     uploadData = await request.createUpload();
   } catch (err) {
-    alert("cannot reach server");
+    console.log("cannot reach server");
   }
 
   setTimeout(() => {
     clearInterval(interval);
     countdown.style.display = "none";
     paused = true;
-
-    const canvasEl = p5Canvas.canvas;
-    console.log(p5Canvas.canvas);
-    canvasEl.toBlob((blob) => {
-      request.putImage(blob, uploadData).then((res) => {
-        console.log("uploaded", res);
-      });
-    });
+    uploadImage(uploadData);
 
     // pause after take image
     setTimeout(() => {
@@ -101,4 +94,30 @@ async function takeImage(e) {
       paused = false;
     }, 3000);
   }, 3000);
+}
+
+const qrcodeImg = document.getElementById("qrcode-img");
+const qrcode = document.getElementById("qrcode");
+function uploadImage(uploadData) {
+  const canvasEl = p5Canvas.canvas;
+  console.log(p5Canvas.canvas);
+  canvasEl.toBlob(async (blob) => {
+    try {
+      await request.putImage(blob, uploadData);
+      console.log("uploaded");
+      const url = await request.getWxQrcode(uploadData.id);
+      console.log("got qrcode", url);
+      qrcodeImg.setAttribute("src", url);
+      qrcode.style.display = "block";
+    } catch (err) {
+      console.error(err);
+    }
+  });
+}
+
+document.addEventListener("keydown", hideQrcode);
+function hideQrcode(e) {
+  if (e.code === "Escape") {
+    qrcode.style.display = "none";
+  }
 }

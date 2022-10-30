@@ -1,17 +1,24 @@
 {
-  "session": {
-    "maxAge": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-session\\config\\config.default.js",
-    "key": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-session\\config\\config.default.js",
-    "httpOnly": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-session\\config\\config.default.js",
-    "encrypt": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-session\\config\\config.default.js",
-    "logValue": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-session\\config\\config.default.js"
+  "ACCESS_KEY_ID": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+  "ACCESS_KEY_SECRET": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+  "AUTH_SECRET": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+  "WX_APP_ID": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+  "WX_APP_SECRET": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+  "env": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+  "keys": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+  "middleware": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+  "verifyJwt": {
+    "secret": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+    "passThrough": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts"
+  },
+  "cors": {
+    "origin": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+    "allowMethods": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+    "allowHeaders": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts"
   },
   "security": {
-    "domainWhiteList": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
-    "protocolWhiteList": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
-    "defaultMiddleware": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
     "csrf": {
-      "enable": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
+      "enable": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
       "type": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
       "ignoreJSON": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
       "useSession": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
@@ -23,12 +30,15 @@
       "supportedRequests": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
       "refererWhiteList": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js"
     },
+    "domainWhiteList": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
+    "protocolWhiteList": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
+    "defaultMiddleware": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
     "xframe": {
       "enable": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
       "value": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js"
     },
     "hsts": {
-      "enable": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
+      "enable": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.local.js",
       "maxAge": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js",
       "includeSubdomains": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js"
     },
@@ -62,6 +72,20 @@
       "checkAddress": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js"
     }
   },
+  "cluster": {
+    "listen": {
+      "port": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+      "hostname": "D:\\Documents\\projects\\ai-style-transfer\\server\\config\\config.default.ts",
+      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js"
+    }
+  },
+  "session": {
+    "maxAge": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-session\\config\\config.default.js",
+    "key": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-session\\config\\config.default.js",
+    "httpOnly": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-session\\config\\config.default.js",
+    "encrypt": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-session\\config\\config.default.js",
+    "logValue": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-session\\config\\config.default.js"
+  },
   "helper": {
     "shtml": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-security\\config\\config.default.js"
   },
@@ -84,7 +108,7 @@
     "cookieMaxAge": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-i18n\\config\\config.default.js"
   },
   "watcher": {
-    "type": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-watcher\\config\\config.default.js",
+    "type": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-watcher\\config\\config.local.js",
     "eventSources": {
       "default": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-watcher\\config\\config.default.js",
       "development": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-watcher\\config\\config.default.js"
@@ -117,6 +141,14 @@
       "disable": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-multipart\\config\\config.default.js"
     }
   },
+  "development": {
+    "watchDirs": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-development\\config\\config.default.js",
+    "ignoreDirs": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-development\\config\\config.default.js",
+    "fastReady": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-development\\config\\config.default.js",
+    "reloadOnDebug": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-development\\config\\config.default.js",
+    "overrideDefault": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-development\\config\\config.default.js",
+    "overrideIgnore": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-development\\config\\config.default.js"
+  },
   "logrotator": {
     "filesRotateByHour": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-logrotator\\config\\config.default.js",
     "hourDelimiter": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-logrotator\\config\\config.default.js",
@@ -131,20 +163,18 @@
     "dir": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-static\\config\\config.default.js",
     "dynamic": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-static\\config\\config.default.js",
     "preload": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-static\\config\\config.default.js",
-    "buffer": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-static\\config\\config.prod.js",
-    "maxFiles": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-static\\config\\config.default.js",
-    "maxAge": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-static\\config\\config.prod.js"
+    "buffer": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-static\\config\\config.default.js",
+    "maxFiles": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-static\\config\\config.default.js"
   },
   "view": {
     "root": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-view\\config\\config.default.js",
-    "cache": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-view\\config\\config.default.js",
+    "cache": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-view\\config\\config.local.js",
     "defaultExtension": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-view\\config\\config.default.js",
     "defaultViewEngine": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-view\\config\\config.default.js",
     "mapping": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-view\\config\\config.default.js"
   },
-  "env": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
+  "validate": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg-validate\\config\\config.default.js",
   "name": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-  "keys": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
   "cookies": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
   "proxy": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
   "maxIpsCount": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
@@ -176,6 +206,7 @@
       "clean": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js"
     },
     "dependencies": {
+      "axios": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
       "dotenv": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
       "egg": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
       "egg-cors": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
@@ -260,7 +291,9 @@
     "coreLogName": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
     "agentLogName": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
     "errorLogName": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-    "coreLogger": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
+    "coreLogger": {
+      "consoleLevel": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.local.js"
+    },
     "allowDebugAtProd": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
     "enablePerformanceTimer": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js"
   },
@@ -291,13 +324,6 @@
   "coreMiddleware": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
   "workerStartTimeout": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
   "serverTimeout": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-  "cluster": {
-    "listen": {
-      "path": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-      "port": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
-      "hostname": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js"
-    }
-  },
   "clusterClient": {
     "maxWaitTime": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js",
     "responseTimeout": "D:\\Documents\\projects\\ai-style-transfer\\server\\node_modules\\egg\\config\\config.default.js"

@@ -7,6 +7,9 @@ export default (app: Application) => {
 
   router.post('/auth/sign', controller.auth.sign);
   router.get('/auth/verify', controller.auth.verify);
+
   router.post('/oss/sign', controller.oss.sign);
   router.post('/oss/createUpload', controller.oss.createUpload);
+
+  router.post('/wx/qrcode', controller.wx.stQrcode);
 };

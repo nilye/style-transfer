@@ -106,6 +106,7 @@ export default class OssService extends Service {
     const authorization = this.signAuthorization(signParams);
 
     return {
+      id,
       objectName,
       headers: {
         Authorization: authorization,

@@ -37,6 +37,16 @@ function createUpload() {
   });
 }
 
+function getWxQrcode(objectName) {
+  return fetch("/api/wx/qrcode", {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ objectName }),
+  })
+    .then((res) => res.json())
+    .then((json) => json.data.url);
+}
+
 function login() {
   const bucket = window.bucket || "tale-style-transfer-dev";
   const client = window.client || "localhost";
@@ -71,6 +81,7 @@ const request = {
   login,
   putImage,
   createUpload,
+  getWxQrcode,
 };
 
 export default request;

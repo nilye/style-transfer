@@ -6,6 +6,7 @@ import ExportAuth from '../../../app/controller/auth';
 import ExportBase from '../../../app/controller/base';
 import ExportHome from '../../../app/controller/home';
 import ExportOss from '../../../app/controller/oss';
+import ExportWx from '../../../app/controller/wx';
 
 declare module 'egg' {
   interface IController {
@@ -13,5 +14,6 @@ declare module 'egg' {
     base: ExportBase;
     home: ExportHome;
     oss: ExportOss;
+    wx: ExportWx;
   }
 }
