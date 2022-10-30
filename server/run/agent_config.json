@@ -178,7 +178,7 @@
         "declarations": true
       },
       "scripts": {
-        "start": "egg-scripts start --title=egg-server-server --port=3100 --workers=2",
+        "start": "egg-scripts start --title=egg-server-server --port=3100 --workers=4",
         "stop": "egg-scripts stop --title=egg-server-server",
         "dev": "egg-bin dev",
         "debug": "egg-bin debug",
@@ -499,7 +499,7 @@
         "declarations": true
       },
       "scripts": {
-        "start": "egg-scripts start --title=egg-server-server --port=3100 --workers=2",
+        "start": "egg-scripts start --title=egg-server-server --port=3100 --workers=4",
         "stop": "egg-scripts stop --title=egg-server-server",
         "dev": "egg-bin dev",
         "debug": "egg-bin debug",

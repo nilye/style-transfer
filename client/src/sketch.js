@@ -19,8 +19,14 @@ const h = 720;
 
 const setup = (p) => () => {
   p5Canvas = p.createCanvas(w, h, "P2D");
+  p.frameRate(24);
+
   video = p.createCapture("VIDEO");
   video.hide();
+  video.elt.muted = true;
+  video.elt.setAttribute("controls", "true");
+  video.elt.setAttribute("muted", "");
+  // debugger;
 
   resultImg = p.createImg("");
   resultImg.hide();
@@ -29,7 +35,7 @@ const setup = (p) => () => {
     modelLoaded = true;
     setTimeout(() => {
       style.transfer(gotResult);
-    }, 2000);
+    }, 1000);
   });
 };
 
@@ -44,7 +50,9 @@ const draw = (p) => () => {
 
 function gotResult(err, img) {
   resultImg.attribute("src", img.src);
-  style.transfer(gotResult);
+  window.requestIdleCallback(() => {
+    style.transfer(gotResult);
+  });
 }
 
 export function init() {
@@ -58,6 +66,7 @@ let isCounting = false;
 
 async function takeImage(e) {
   if (!modelLoaded || isCounting || e.code !== "Space") return;
+
   let sec = 3;
   isCounting = true;
   countdown.textContent = 3;

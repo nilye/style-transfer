@@ -14,17 +14,27 @@ function putImage(blob, options) {
   }).then();
 }
 
-async function createUpload() {
-  const res = await fetch("/api/oss/createUpload", {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      contentType: "image/jpeg",
-    }),
+function createUpload() {
+  const controller = new AbortController();
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      controller.abort();
+      reject("timeout");
+    }, 2000);
+
+    fetch("/api/oss/createUpload", {
+      method: "POST",
+      headers,
+      signal: controller.signal,
+      body: JSON.stringify({
+        contentType: "image/jpeg",
+      }),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        resolve(json.data);
+      });
   });
-  const json = await res.json();
-  const data = await json;
-  return data.data;
 }
 
 function login() {
