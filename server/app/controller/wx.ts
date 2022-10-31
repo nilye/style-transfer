@@ -1,3 +1,4 @@
+import { parseXml } from '../util/parseXml';
 import Controller from './base';
 
 export default class WxController extends Controller {
@@ -32,11 +33,22 @@ export default class WxController extends Controller {
 
   public async receiveWxEvent() {
     const { ctx } = this;
+    const body = await parseXml(ctx.request.body);
 
-    console.log(ctx.request.body, ctx.params, ctx.request.headers);
+    const { MsgType, Event, EventKey } = body;
+    if (MsgType === 'event' && EventKey && (Event === 'subscribe' || Event === 'SCAN')) {
+      if (body.EventKey.startsWith('qrscene')) {
+        body.EventKey = body.EventKey.slice(8);
+        console.log(body);
+      }
+      const replyXml = this.service.wx.replyMessage(body);
+      ctx.body = replyXml;
+      ctx.status = 200;
+      ctx.set('Content-Type', 'application/xml');
+      return;
+    }
 
     ctx.body = '';
     ctx.status = 200;
-    return;
   }
 }

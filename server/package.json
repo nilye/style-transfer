@@ -8,7 +8,7 @@
     "declarations": true
   },
   "scripts": {
-    "start": "egg-scripts start --title=egg-server-server --port=3100 --daemon --workers=1",
+    "start": "egg-scripts start --title=egg-server-server --port=3100 --daemon --workers=2",
     "stop": "egg-scripts stop --title=egg-server-server",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
@@ -30,7 +30,8 @@
     "egg-validate": "^2.0.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
-    "nanoid": "3.3.4"
+    "nanoid": "3.3.4",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "@eggjs/tsconfig": "^1.0.0",

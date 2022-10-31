@@ -85,4 +85,23 @@ export default class WxService extends Service {
     return encrypted === signature;
   }
 
+  // 带参二维码回复消息
+  // https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Receiving_event_pushes.html#%E6%89%AB%E6%8F%8F%E5%B8%A6%E5%8F%82%E6%95%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E4%BA%8B%E4%BB%B6
+  replyMessage(params: any) {
+    const { ToUserName, FromUserName, EventKey } = params;
+    const objectId = EventKey.split(':')[1];
+    const text = `
+      <a target="_blank" href="https://style-transfer.nil.work?id=${objectId}">点击此处</a>
+      获取你在Udnie油画宇宙（编号丁壹B）中的投射
+    `;
+    return `
+      <xml>
+        <ToUserName><![CDATA[${FromUserName}]]></ToUserName>
+        <FromUserName><![CDATA[${ToUserName}]]></FromUserName>
+        <CreateTime>${getTimestamp()}</CreateTime>
+        <MsgType><![CDATA[text]]></MsgType>
+        <Content><![CDATA[${text}]]></Content>
+      </xml>
+    `;
+  }
 }
