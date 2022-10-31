@@ -61,6 +61,8 @@ export function init() {
 
 const countdown = document.getElementById("countdown");
 document.addEventListener("keydown", takeImage);
+const qrcodeImg = document.getElementById("qrcode-img");
+const qrcode = document.getElementById("qrcode");
 
 let isCounting = false;
 
@@ -72,6 +74,7 @@ async function takeImage(e) {
   countdown.textContent = 3;
   countdown.style.display = "block";
   qrcode.style.display = "none";
+  qrcodeImg.setAttribute("src", "");
 
   const interval = setInterval(() => {
     countdown.textContent = --sec;
@@ -98,8 +101,6 @@ async function takeImage(e) {
   }, 3000);
 }
 
-const qrcodeImg = document.getElementById("qrcode-img");
-const qrcode = document.getElementById("qrcode");
 function uploadImage(uploadData) {
   const canvasEl = p5Canvas.canvas;
   console.log(p5Canvas.canvas);
