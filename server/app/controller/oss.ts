@@ -40,7 +40,6 @@ export default class OssController extends Controller {
 
     const { contentMd5, contentType } = ctx.request.body;
     const { bucket, client } = ctx.state.user;
-    console.log(ctx.state.user);
 
     const data = this.ctx.service.oss.createUpload({
       contentMd5,

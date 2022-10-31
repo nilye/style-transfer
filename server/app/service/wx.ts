@@ -38,7 +38,6 @@ export default class WxService extends Service {
           secret,
         },
       }).then((res: any) => {
-        console.log(res);
         this.accessToken = res.access_token;
         this.accessTokenExpiresAt = getTimestamp() + res.expires_in - 2;
         return res.access_token;
@@ -55,13 +54,15 @@ export default class WxService extends Service {
       throw new Error('wx not authorized');
     }
 
+    const { bucket } = this.ctx.state.user;
+
     return await wxApi.post('/cgi-bin/qrcode/create', {
       expire_seconds: 2592000,
       action_name: 'QR_STR_SCENE',
       action_info: {
         scene: {
           // st (style-transfer) + : + objectId
-          scene_str: 'st:' + objectId,
+          scene_str: `st:${bucket}:${objectId}`,
         },
       },
     }, {
@@ -89,18 +90,17 @@ export default class WxService extends Service {
   // https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Receiving_event_pushes.html#%E6%89%AB%E6%8F%8F%E5%B8%A6%E5%8F%82%E6%95%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E4%BA%8B%E4%BB%B6
   replyMessage(params: any) {
     const { ToUserName, FromUserName, EventKey } = params;
-    const objectId = EventKey.split(':')[1];
-    const text = `
-      <a target="_blank" href="https://style-transfer.nil.work?id=${objectId}">点击此处</a>
-      获取你在Udnie油画宇宙（编号丁壹B）中的投射
-    `;
+    const [ _, bucket, objectId ] = EventKey.split(':');
+    if (!bucket || !objectId) return;
+    const text = `<a target="_blank" href="https://style-transfer.nil.work/view?id=${objectId}&bucket=${bucket}">点击此处</a>` +
+    '\n获取你在Udnie油画宇宙（编号：丁壹B）中的投影';
     return `
       <xml>
         <ToUserName><![CDATA[${FromUserName}]]></ToUserName>
         <FromUserName><![CDATA[${ToUserName}]]></FromUserName>
         <CreateTime>${getTimestamp()}</CreateTime>
         <MsgType><![CDATA[text]]></MsgType>
-        <Content><![CDATA[${text}]]></Content>
+        <Content><![CDATA[${text.trim()}]]></Content>
       </xml>
     `;
   }

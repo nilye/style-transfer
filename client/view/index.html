@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>Tale 油画宇宙</title>
+    <meta charset="UTF-8">
+    <style>
+      body {
+        margin: 0;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: black;
+      }
+      #img {
+        display: none;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <img id="img" src="" alt="udnie油画宇宙" />
+    <script>
+
+      const img = document.getElementById("img")
+      const query = new URLSearchParams(window.location.search)
+      const id = query.get("id")
+      const bucket = query.get("bucket")
+      console.log(id, bucket)
+      if (id && bucket){
+        const src = `https://${bucket}.oss-cn-shanghai.aliyuncs.com/${id}.jpg`
+        img.setAttribute("src", src)
+      }
+
+      img.onload = function(){
+        img.style.display = "block"
+      }
+
+      img.onerror = function(){
+        img.style.display = "none"
+      }      
+    </script>
+  </body>
+</html>

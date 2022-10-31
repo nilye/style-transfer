@@ -39,13 +39,14 @@ export default class WxController extends Controller {
     if (MsgType === 'event' && EventKey && (Event === 'subscribe' || Event === 'SCAN')) {
       if (body.EventKey.startsWith('qrscene')) {
         body.EventKey = body.EventKey.slice(8);
-        console.log(body);
       }
       const replyXml = this.service.wx.replyMessage(body);
-      ctx.body = replyXml;
-      ctx.status = 200;
-      ctx.set('Content-Type', 'application/xml');
-      return;
+      if (replyXml) {
+        ctx.body = replyXml;
+        ctx.status = 200;
+        ctx.set('Content-Type', 'application/xml');
+        return;
+      }
     }
 
     ctx.body = '';

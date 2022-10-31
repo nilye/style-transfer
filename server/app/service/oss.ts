@@ -64,7 +64,7 @@ export default class OssService extends Service {
       canonicalizedResource,
     ];
 
-    console.log(signContent);
+
     const stringToSign = signContent.join('\n');
 
     // sign authorization
