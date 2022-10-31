@@ -58,9 +58,12 @@ export default class WxService extends Service {
     return await wxApi.post('/cgi-bin/qrcode/create', {
       expire_seconds: 2592000,
       action_name: 'QR_STR_SCENE',
-      action_info: '',
-      // st (style-transfer) + : + objectId
-      scene_str: 'st:' + objectId,
+      action_info: {
+        scene: {
+          // st (style-transfer) + : + objectId
+          scene_str: 'st:' + objectId,
+        },
+      },
     }, {
       params: {
         access_token: token,
