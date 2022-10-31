@@ -22,7 +22,7 @@ export default (appInfo: EggAppInfo) => {
   config.middleware = [ 'verifyJwt' ];
   config.verifyJwt = {
     secret: envConfig.AUTH_SECRET,
-    passThrough: [ '/auth/sign' ],
+    passThrough: [ '/auth/sign', '/', '/wx/callback' ],
   };
 
 
