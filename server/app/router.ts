@@ -13,4 +13,5 @@ export default (app: Application) => {
 
   router.post('/wx/qrcode', controller.wx.stQrcode);
   router.get('/wx/callback', controller.wx.verifyWxServer);
+  router.post('/wx/callback', controller.wx.receiveWxEvent);
 };

@@ -20,7 +20,6 @@ export default class WxController extends Controller {
   public async verifyWxServer() {
     const { ctx } = this;
 
-    console.log('wx query', ctx.query);
     const result = this.service.wx.verifyServer(ctx.query);
 
     if (result) {
@@ -29,5 +28,15 @@ export default class WxController extends Controller {
       return;
     }
     return this.badRequest();
+  }
+
+  public async receiveWxEvent() {
+    const { ctx } = this;
+
+    console.log(ctx.request.body, ctx.params, ctx.request.headers);
+
+    ctx.body = '';
+    ctx.status = 200;
+    return;
   }
 }

@@ -49,7 +49,7 @@ export default class WxService extends Service {
   }
 
   // 生成拍照图片二维码
-  async getStQrcode(objectName: string) {
+  async getStQrcode(objectId: string) {
     const token = await this.getAccessToken();
     if (!token) {
       throw new Error('wx not authorized');
@@ -59,8 +59,8 @@ export default class WxService extends Service {
       expire_seconds: 2592000,
       action_name: 'QR_STR_SCENE',
       action_info: '',
-      scene_id: 101, // style-transfer
-      scene_str: objectName,
+      // st (style-transfer) + : + objectId
+      scene_str: 'st:' + objectId,
     }, {
       params: {
         access_token: token,
@@ -79,8 +79,6 @@ export default class WxService extends Service {
     const arr = [ nonce, token, timestamp ].sort();
     const str = arr.join('');
     const encrypted = crypto.createHash('sha1').update(str).digest('hex');
-    console.log(arr, str);
-    console.log(encrypted, signature);
     return encrypted === signature;
   }
 
