@@ -9,6 +9,7 @@ let video;
 let resultImg;
 let modelLoaded = false;
 let paused = false;
+let logoImg;
 
 function sketch(p) {
   p.setup = setup(p);
@@ -20,6 +21,7 @@ const h = 720;
 const setup = (p) => () => {
   p5Canvas = p.createCanvas(w, h);
   p.frameRate(24);
+  p5Canvas.drawingContext.save();
 
   video = p.createCapture("VIDEO");
   video.hide();
@@ -30,6 +32,9 @@ const setup = (p) => () => {
 
   resultImg = p.createImg("");
   resultImg.hide();
+  logoImg = p.createImg("");
+  logoImg.hide();
+  logoImg.attribute("src", logoImageData);
 
   style = ml5.styleTransfer("models/udnie", video, () => {
     modelLoaded = true;
@@ -41,10 +46,12 @@ const setup = (p) => () => {
 
 const draw = (p) => () => {
   if (paused) return;
+
+  p.scale(-1, 1);
   if (modelLoaded) {
-    p.image(resultImg, 0, 0, w, h);
+    p.image(modelLoaded ? resultImg : vide, 0, 0, -w, h);
   } else {
-    p.image(video, 0, 0, w, h);
+    p.image(video, 0, 0, -w, h);
   }
 };
 
@@ -53,10 +60,6 @@ function gotResult(err, img) {
   window.requestIdleCallback(() => {
     style.transfer(gotResult);
   });
-}
-
-export function init() {
-  new P5(sketch, document.getElementById("container"));
 }
 
 const countdown = document.getElementById("countdown");
@@ -103,7 +106,7 @@ async function takeImage(e) {
 
 function uploadImage(uploadData) {
   const canvasEl = p5Canvas.canvas;
-  console.log(p5Canvas.canvas);
+  drawLogo();
   canvasEl.toBlob(async (blob) => {
     try {
       await request.putImage(blob, uploadData);
@@ -123,4 +126,17 @@ function hideQrcode(e) {
   if (e.code === "Escape") {
     qrcode.style.display = "none";
   }
+}
+
+function drawLogo() {
+  const ctx = p5Canvas.drawingContext;
+  ctx.restore();
+  ctx.drawImage(logoImg.elt, 8, h - 37 - 8, 108, 37);
+}
+
+const logoImageData =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMjUgMTEyIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9PC9zdHlsZT48L2RlZnM+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PGcgaWQ9IkxheWVyXzUiIGRhdGEtbmFtZT0iTGF5ZXIgNSI+PHJlY3Qgd2lkdGg9IjMyNSIgaGVpZ2h0PSIxMTIiLz48cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMjk4Ljk5IDI2LjUgMjM4Ljk5IDI2LjUgMjM3Ljk5IDI2LjUgMjM3Ljk5IDI3LjUgMjM3Ljk5IDM5LjUgMjM3Ljk5IDQwLjUgMjM4Ljk5IDQwLjUgMjk4Ljk5IDQwLjUgMjk5Ljk5IDQwLjUgMjk5Ljk5IDM5LjUgMjk5Ljk5IDI3LjUgMjk5Ljk5IDI2LjUgMjk4Ljk5IDI2LjUiLz48cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMjc4Ljk5IDYzLjgzIDI3OS45OSA2My44MyAyNzkuOTkgNjIuODMgMjc5Ljk5IDUwLjgzIDI3OS45OSA0OS44MyAyNzguOTkgNDkuODMgMjM4Ljk5IDQ5LjgzIDIzNy45OSA0OS44MyAyMzcuOTkgNTAuODMgMjM3Ljk5IDYyLjgzIDIzNy45OSA2My44MyAyMzguOTkgNjMuODMgMjc4Ljk5IDYzLjgzIi8+PHBvbHlnb24gY2xhc3M9ImNscy0xIiBwb2ludHM9IjIzOC45OSA3NC41IDIzNy45OSA3NC41IDIzNy45OSA3NS41IDIzNy45OSA4Ny41IDIzNy45OSA4OC41IDIzOC45OSA4OC41IDI5OC45OSA4OC41IDI5OS45OSA4OC41IDI5OS45OSA4Ny41IDI5OS45OSA3NS41IDI5OS45OSA3NC41IDI5OC45OSA3NC41IDIzOC45OSA3NC41Ii8+PHBvbHlnb24gY2xhc3M9ImNscy0xIiBwb2ludHM9IjE4My40NCA3NC41IDE4My40NCAyNy41IDE4My40NCAyNi41IDE4Mi40NCAyNi41IDE3MC40NCAyNi41IDE2OS40NCAyNi41IDE2OS40NCAyNy41IDE2OS40NCA4Ny41IDE2OS40NCA4OC41IDE3MC40NCA4OC41IDIyMC40NCA4OC41IDIyMS40NCA4OC41IDIyMS40NCA4Ny41IDIyMS40NCA3NS41IDIyMS40NCA3NC41IDIyMC40NCA3NC41IDE4My40NCA3NC41Ii8+PHBvbHlnb24gY2xhc3M9ImNscy0xIiBwb2ludHM9IjI2LjM1IDI2LjUgMjUuMzUgMjYuNSAyNS4zNSAyNy41IDI1LjM1IDM5LjUgMjUuMzUgNDAuNSAyNi4zNSA0MC41IDQ5LjM1IDQwLjUgNDkuMzUgODcuNSA0OS4zNSA4OC41IDUwLjM1IDg4LjUgNjIuMzUgODguNSA2My4zNSA4OC41IDYzLjM1IDg3LjUgNjMuMzUgNDAuNSA4Ni4zNSA0MC41IDg3LjM1IDQwLjUgODcuMzUgMzkuNSA4Ny4zNSAyNy41IDg3LjM1IDI2LjUgODYuMzUgMjYuNSAyNi4zNSAyNi41Ii8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMTI4LDI5YTQuNTgsNC41OCwwLDAsMC04LjE5LDBMOTMuMzksODEuODdhNC41OCw0LjU4LDAsMCwwLDQuMDksNi42M2g1Mi44M2E0LjU4LDQuNTgsMCwwLDAsNC4xLTYuNjNaIi8+PC9nPjwvZz48L3N2Zz4=";
+
+export function init() {
+  new P5(sketch, document.getElementById("container"));
 }
