@@ -71,6 +71,8 @@ async function takeImage(e) {
   isCounting = true;
   countdown.textContent = 3;
   countdown.style.display = "block";
+  qrcode.style.display = "none";
+
   const interval = setInterval(() => {
     countdown.textContent = --sec;
   }, 1000);

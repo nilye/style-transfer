@@ -92,8 +92,7 @@ export default class WxService extends Service {
     const { ToUserName, FromUserName, EventKey } = params;
     const [ _, bucket, objectId ] = EventKey.split(':');
     if (!bucket || !objectId) return;
-    const text = `<a target="_blank" href="https://style-transfer.nil.work/view?id=${objectId}&bucket=${bucket}">点击此处</a>` +
-    '\n获取你在Udnie油画宇宙（编号：丁壹B）中的投影';
+    const text = `<a target="_blank" href="https://style-transfer.nil.work/view?id=${objectId}&bucket=${bucket}">点击此处</a>获取你在Udnie油画宇宙（编号：丁壹B）中的投影`;
     return `
       <xml>
         <ToUserName><![CDATA[${FromUserName}]]></ToUserName>
