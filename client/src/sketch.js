@@ -63,7 +63,6 @@ function gotResult(err, img) {
 }
 
 const countdown = document.getElementById("countdown");
-document.addEventListener("keydown", takeImage);
 const qrcodeImg = document.getElementById("qrcode-img");
 const qrcode = document.getElementById("qrcode");
 
@@ -123,8 +122,12 @@ function uploadImage(uploadData) {
 
 document.addEventListener("keydown", hideQrcode);
 function hideQrcode(e) {
-  if (e.code === "Escape") {
+  if (e.code === "C") {
     qrcode.style.display = "none";
+  } else if (e.code === "Space") {
+    takeImage(e);
+  } else if (e.code === "F") {
+    document.body.requestFullscreen();
   }
 }
 
