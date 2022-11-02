@@ -122,11 +122,11 @@ function uploadImage(uploadData) {
 
 document.addEventListener("keydown", hideQrcode);
 function hideQrcode(e) {
-  if (e.code === "C") {
+  if (e.key === "c") {
     qrcode.style.display = "none";
   } else if (e.code === "Space") {
     takeImage(e);
-  } else if (e.code === "F") {
+  } else if (e.key === "f") {
     document.body.requestFullscreen();
   }
 }
