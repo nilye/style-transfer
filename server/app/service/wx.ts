@@ -88,7 +88,7 @@ export default class WxService extends Service {
 
   // 带参二维码回复消息
   // https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Receiving_event_pushes.html#%E6%89%AB%E6%8F%8F%E5%B8%A6%E5%8F%82%E6%95%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E4%BA%8B%E4%BB%B6
-  replyMessage(params: any) {
+  replyAiImageMessage(params: any) {
     const { ToUserName, FromUserName, EventKey } = params;
     const [ _, bucket, objectId ] = EventKey.split(':');
 
@@ -106,4 +106,19 @@ export default class WxService extends Service {
       </xml>
     `;
   }
+
+  replyWelcomeMessage() {
+    const msg = 'TALE 专心打造实境沉浸式体验，拓展艺术与科技结合的边界❗\n首个主题【迷津】炸裂开启，神秘实验室招募调查员⚠️⚠️⚠️\n欢迎你的到来！';
+    return `
+    <xml>
+      <ToUserName><![CDATA[${FromUserName}]]></ToUserName>
+      <FromUserName><![CDATA[${ToUserName}]]></FromUserName>
+      <CreateTime>${getTimestamp()}</CreateTime>
+      <MsgType><![CDATA[text]]></MsgType>
+      <Content><![CDATA[${msg.trim()}]]></Content>
+    </xml>
+  `;
+  }
+
+
 }

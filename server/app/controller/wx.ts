@@ -36,11 +36,12 @@ export default class WxController extends Controller {
     const body = await parseXml(ctx.request.body);
 
     const { MsgType, Event, EventKey } = body;
-    if (MsgType === 'event' && EventKey && (Event === 'subscribe' || Event === 'SCAN')) {
-      if (body.EventKey.startsWith('qrscene')) {
+    if (MsgType === 'event' && (Event === 'subscribe' || Event === 'SCAN')) {
+      let replyXml = this.service.wx.replyWelcomeMessage();
+      if (EventKey && EventKey.startsWith('qrscene')) {
         body.EventKey = body.EventKey.slice(8);
+        replyXml = this.service.wx.replyAiImageMessage(body);
       }
-      const replyXml = this.service.wx.replyMessage(body);
       if (replyXml) {
         ctx.body = replyXml;
         ctx.status = 200;
