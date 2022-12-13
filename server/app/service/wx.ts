@@ -92,7 +92,7 @@ export default class WxService extends Service {
     const { ToUserName, FromUserName, EventKey } = params;
     const [ _, bucket, objectId ] = EventKey.split(':');
 
-    let msg = '欢迎来到镜中世界，TALE 专心打造实境沉浸式体验，不断拓展艺术与科技结合的边界。\n首个主题【迷津】炸裂开启，神秘实验室招募研究员';
+    let msg = 'TALE 专心打造实境沉浸式体验，拓展艺术与科技结合的边界❗\n首个主题【迷津】炸裂开启，神秘实验室招募调查员⚠️⚠️⚠️\n欢迎你的到来！';
     if (bucket && objectId) {
       msg = `<a target="_blank" href="https://style-transfer.nil.work/view?id=${objectId}&bucket=${bucket}">点击此处</a>获取你调差报告影像记录`;
     }
