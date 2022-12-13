@@ -91,15 +91,18 @@ export default class WxService extends Service {
   replyMessage(params: any) {
     const { ToUserName, FromUserName, EventKey } = params;
     const [ _, bucket, objectId ] = EventKey.split(':');
-    if (!bucket || !objectId) return;
-    const text = `<a target="_blank" href="https://style-transfer.nil.work/view?id=${objectId}&bucket=${bucket}">点击此处</a>获取你在Udnie油画宇宙（编号：丁壹B）中的投影`;
+
+    let msg = '欢迎来到镜中世界，TALE 专心打造实境沉浸式体验，不断拓展艺术与科技结合的边界。\n首个主题【迷津】炸裂开启，神秘实验室招募研究员';
+    if (bucket && objectId) {
+      msg = `<a target="_blank" href="https://style-transfer.nil.work/view?id=${objectId}&bucket=${bucket}">点击此处</a>获取你调差报告影像记录`;
+    }
     return `
       <xml>
         <ToUserName><![CDATA[${FromUserName}]]></ToUserName>
         <FromUserName><![CDATA[${ToUserName}]]></FromUserName>
         <CreateTime>${getTimestamp()}</CreateTime>
         <MsgType><![CDATA[text]]></MsgType>
-        <Content><![CDATA[${text.trim()}]]></Content>
+        <Content><![CDATA[${msg.trim()}]]></Content>
       </xml>
     `;
   }
