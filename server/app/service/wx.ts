@@ -107,7 +107,9 @@ export default class WxService extends Service {
     `;
   }
 
-  replyWelcomeMessage() {
+  replyWelcomeMessage(params: any) {
+    const { ToUserName, FromUserName } = params;
+
     const msg = 'TALE 专心打造实境沉浸式体验，拓展艺术与科技结合的边界❗\n首个主题【迷津】炸裂开启，神秘实验室招募调查员⚠️⚠️⚠️\n欢迎你的到来！';
     return `
     <xml>

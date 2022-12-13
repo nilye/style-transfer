@@ -37,7 +37,7 @@ export default class WxController extends Controller {
 
     const { MsgType, Event, EventKey } = body;
     if (MsgType === 'event' && (Event === 'subscribe' || Event === 'SCAN')) {
-      let replyXml = this.service.wx.replyWelcomeMessage();
+      let replyXml = this.service.wx.replyWelcomeMessage(body);
       if (EventKey && EventKey.startsWith('qrscene')) {
         body.EventKey = body.EventKey.slice(8);
         replyXml = this.service.wx.replyAiImageMessage(body);
