@@ -11,6 +11,9 @@ let modelLoaded = false;
 let paused = false;
 let logoImg;
 
+let faceApi;
+let faceApiModelLoaded = false;
+
 function sketch(p) {
   p.setup = setup(p);
   p.draw = draw(p);
@@ -30,6 +33,8 @@ const setup = (p) => () => {
   video.elt.setAttribute("muted", "");
   // debugger;
 
+  originImg = p.createImg("");
+  originImg.hide();
   resultImg = p.createImg("");
   resultImg.hide();
   logoImg = p.createImg("");
@@ -42,6 +47,10 @@ const setup = (p) => () => {
       style.transfer(gotResult);
     }, 1000);
   });
+
+  faceApi = ml5.faceApi({}, () => {
+    faceApiModelLoaded = true;
+  });
 };
 
 const draw = (p) => () => {
@@ -49,7 +58,7 @@ const draw = (p) => () => {
 
   p.scale(-1, 1);
   if (modelLoaded) {
-    p.image(modelLoaded ? resultImg : vide, 0, 0, -w, h);
+    p.image(modelLoaded ? resultImg : video, 0, 0, -w, h);
   } else {
     p.image(video, 0, 0, -w, h);
   }
@@ -57,9 +66,7 @@ const draw = (p) => () => {
 
 function gotResult(err, img) {
   resultImg.attribute("src", img.src);
-  window.requestIdleCallback(() => {
-    style.transfer(gotResult);
-  });
+  style.transfer(gotResult);
 }
 
 const countdown = document.getElementById("countdown");
@@ -67,6 +74,32 @@ const qrcodeImg = document.getElementById("qrcode-img");
 const qrcode = document.getElementById("qrcode");
 
 let isCounting = false;
+
+function detectFace() {
+  return new Promise((resolve, reject) => {
+    if (!faceApiModelLoaded) return reject();
+    const canvas = document.createElement("canvas");
+    canvas.height = video.height;
+    canvas.width = video.width;
+    // document.body.append(canvas);
+    canvas
+      .getContext("2d")
+      .drawImage(video.elt, 0, 0, video.width, video.height);
+    canvas.toBlob((blob) => {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        originImg.attribute("src", e.target.result);
+        faceApi.detect(originImg, (err, result) => {
+          if (err) {
+            reject(err);
+          }
+          resolve(result);
+        });
+      };
+      reader.readAsDataURL(blob);
+    });
+  });
+}
 
 async function takeImage(e) {
   if (!modelLoaded || isCounting || e.code !== "Space") return;
@@ -89,11 +122,19 @@ async function takeImage(e) {
     console.log("cannot reach server");
   }
 
-  setTimeout(() => {
+  setTimeout(async () => {
     clearInterval(interval);
     countdown.style.display = "none";
     paused = true;
     uploadImage(uploadData);
+
+    let people = 0;
+    try {
+      const result = await detectFace();
+      console.log(result);
+      people = result.length;
+    } catch (err) {}
+    console.log(people);
 
     // pause after take image
     setTimeout(() => {
