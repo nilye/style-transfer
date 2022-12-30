@@ -26,7 +26,7 @@ const setup = (p) => () => {
   p5Canvas = p.createCanvas(w, h);
   p.frameRate(24);
   p5Canvas.drawingContext.save();
-  p5Canvas.elt.style.transform = "scale(1.4)";
+  p5Canvas.elt.style.transform = "scale(1.3)";
 
   video = p.createCapture("VIDEO");
   video.hide();
