@@ -20,7 +20,7 @@ function createUpload() {
     setTimeout(() => {
       controller.abort();
       reject("timeout");
-    }, 2000);
+    }, 3000);
 
     fetch("/api/oss/createUpload", {
       method: "POST",

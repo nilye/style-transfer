@@ -1,6 +1,7 @@
 // import ml5 from "ml5";
 
 import { default as P5 } from "p5";
+import { drawReport } from "./report";
 import request from "./request";
 
 let p5Canvas;
@@ -25,6 +26,7 @@ const setup = (p) => () => {
   p5Canvas = p.createCanvas(w, h);
   p.frameRate(24);
   p5Canvas.drawingContext.save();
+  p5Canvas.elt.style.transform = "scale(1.4)";
 
   video = p.createCapture("VIDEO");
   video.hide();
@@ -48,9 +50,19 @@ const setup = (p) => () => {
     }, 1000);
   });
 
-  faceApi = ml5.faceApi({}, () => {
-    faceApiModelLoaded = true;
-  });
+  faceApi = ml5.faceApi(
+    {
+      withLandmarks: true,
+      withDescriptors: false,
+      Mobilenetv1Model: "models/faceapi",
+      FaceLandmarkModel: "models/faceapi",
+      FaceRecognitionModel: "models/faceapi",
+      FaceExpressionModel: "models/faceapi",
+    },
+    () => {
+      faceApiModelLoaded = true;
+    }
+  );
 };
 
 const draw = (p) => () => {
@@ -101,6 +113,11 @@ function detectFace() {
   });
 }
 
+const loader = document.querySelector(".loading");
+function toggleLoader(toggle = true) {
+  loader.style.display = toggle ? "flex" : "none";
+}
+
 async function takeImage(e) {
   if (!modelLoaded || isCounting || e.code !== "Space") return;
 
@@ -121,12 +138,18 @@ async function takeImage(e) {
   } catch (err) {
     console.log("cannot reach server");
   }
+  if (!uploadData) {
+    console.log(uploadData);
+    clearInterval(interval);
+    countdown.style.display = "none";
+    return;
+  }
 
   setTimeout(async () => {
     clearInterval(interval);
-    countdown.style.display = "none";
     paused = true;
-    uploadImage(uploadData);
+    countdown.style.display = "none";
+    toggleLoader(true);
 
     let people = 0;
     try {
@@ -135,6 +158,12 @@ async function takeImage(e) {
       people = result.length;
     } catch (err) {}
     console.log(people);
+    drawLogo();
+    drawReport(people, p5Canvas.canvas);
+
+    await uploadImage(uploadData);
+
+    toggleLoader(false);
 
     // pause after take image
     setTimeout(() => {
@@ -145,19 +174,21 @@ async function takeImage(e) {
 }
 
 function uploadImage(uploadData) {
-  const canvasEl = p5Canvas.canvas;
-  drawLogo();
-  canvasEl.toBlob(async (blob) => {
-    try {
-      await request.putImage(blob, uploadData);
-      console.log("uploaded");
-      const url = await request.getWxQrcode(uploadData.id);
-      console.log("got qrcode", url);
-      qrcodeImg.setAttribute("src", url);
-      qrcode.style.display = "block";
-    } catch (err) {
-      console.error(err);
-    }
+  const reportCanvas = document.getElementById("report-canvas");
+  return new Promise((resolve) => {
+    reportCanvas.toBlob(async (blob) => {
+      try {
+        await request.putImage(blob, uploadData);
+        console.log("uploaded");
+        const url = await request.getWxQrcode(uploadData.id);
+        console.log("got qrcode", url);
+        qrcodeImg.setAttribute("src", url);
+        qrcode.style.display = "block";
+      } catch (err) {
+        console.error(err);
+      }
+      resolve();
+    });
   });
 }
 
@@ -174,7 +205,6 @@ function hideQrcode(e) {
 
 function drawLogo() {
   const ctx = p5Canvas.drawingContext;
-  ctx.restore();
   ctx.drawImage(logoImg.elt, 8, h - 37 - 8, 108, 37);
 }
 

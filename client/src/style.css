@@ -4,6 +4,11 @@ body {
   position: relative;
 }
 
+/* @font-face {
+  font-family: qiji;
+  src: url(assets/qiji.ttf);
+} */
+
 #container {
   height: 100%;
   display: flex;
@@ -26,9 +31,65 @@ body {
   position: absolute;
   bottom: 32;
   right: 32;
+  z-index: 1000;
 }
 
 #qrcode-img{
   height: 200px;
   width: 200px;
 }
+
+#report-bg-img {
+  display: none;
+  position: absolute;
+}
+
+
+/* loading */
+.loading {
+  z-index: 10000;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  display: flex;
+  height: 64px;
+  padding: 0 16px;
+  align-items: center;
+  background: rgba(0,0,0,0.5);
+  border-radius: 4px;
+  display: none;
+}
+
+.loader {
+  position: relative;
+  box-sizing: border-box;
+  border: 4px solid #FFF;
+  width: 30px;
+  height: 30px;
+  animation: spin 3s infinite linear;
+}
+.loader:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  border: 2px solid #FFF;
+  width: 15px;
+  height: 15px;
+  animation: pulse 1.5s infinite ease;
+}
+@keyframes pulse { 
+  50% { 
+    border-width: 10px;
+  } 
+}
+
+@keyframes spin { 
+  100% { 
+    transform: rotate(360deg); 
+  } 
+} 
