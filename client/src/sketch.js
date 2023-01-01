@@ -19,16 +19,33 @@ function sketch(p) {
   p.setup = setup(p);
   p.draw = draw(p);
 }
-const w = 960;
+const w = 1280;
 const h = 720;
+
+function onWindowResize() {
+  if (!p5Canvas.elt) return;
+  const winWidth = window.innerWidth - 64;
+  p5Canvas.elt.style.width = winWidth + "px";
+  p5Canvas.elt.style.height = (winWidth / 16) * 9 + "px";
+}
+window.addEventListener("resize", onWindowResize);
 
 const setup = (p) => () => {
   p5Canvas = p.createCanvas(w, h);
   p.frameRate(24);
   p5Canvas.drawingContext.save();
-  p5Canvas.elt.style.transform = "scale(1.3)";
+  onWindowResize();
 
-  video = p.createCapture("VIDEO");
+  video = p.createCapture({
+    audio: false,
+    video: {
+      width: 640,
+      height: 360,
+      frameRate: { ideal: 12, max: 16 },
+    },
+  });
+  console.log(video);
+
   video.hide();
   video.elt.muted = true;
   video.elt.setAttribute("controls", "true");
@@ -78,7 +95,9 @@ const draw = (p) => () => {
 
 function gotResult(err, img) {
   resultImg.attribute("src", img.src);
-  style.transfer(gotResult);
+  setTimeout(() => {
+    style.transfer(gotResult);
+  }, 83);
 }
 
 const countdown = document.getElementById("countdown");
@@ -199,7 +218,11 @@ function hideQrcode(e) {
   } else if (e.code === "Space") {
     takeImage(e);
   } else if (e.key === "f") {
-    document.body.requestFullscreen();
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      document.body.requestFullscreen();
+    }
   }
 }
 
