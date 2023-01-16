@@ -25,3 +25,20 @@ init();
 //     1.0
 //   );
 // }
+
+/**
+ * camera permission
+ */
+const cameraError = document.querySelector(".cameraError");
+navigator.mediaDevices
+  .getUserMedia({
+    video: true,
+    audio: false,
+  })
+  .then(() => {
+    cameraError.style.display = "none";
+  })
+  .catch((error) => {
+    console.log(error);
+    cameraError.style.display = "flex";
+  });

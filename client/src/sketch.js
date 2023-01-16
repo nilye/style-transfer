@@ -44,7 +44,6 @@ const setup = (p) => () => {
       frameRate: { ideal: 12, max: 16 },
     },
   });
-  console.log(video);
 
   video.hide();
   video.elt.muted = true;
