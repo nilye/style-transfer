@@ -229,6 +229,7 @@ function hideQrcode(e) {
   if (e.key === shortcut.hideQrcode) {
     qrcode.style.display = "none";
   } else if (e.code === shortcut.takeImage) {
+    if (isShowingVideo) return 
     takeImage(e); 
   } else if (e.key === shortcut.fullScreen) {
     if (document.fullscreenElement) {
