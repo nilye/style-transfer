@@ -4,6 +4,8 @@ import { default as P5 } from "p5";
 import { drawReport } from "./report";
 import request from "./request";
 
+const container = document.getElementById("container")
+const recordVideo = document.getElementById("record-video");
 let p5Canvas;
 let style;
 let video;
@@ -210,18 +212,44 @@ function uploadImage(uploadData) {
   });
 }
 
+
+let isShowingVideo = false
+
+// shortcut keys
+  
+const shortcut = {
+  hideQrcode: "c",
+  takeImage: "Space",
+  fullScreen: "f",
+  playVideo: "v"
+}
+
 document.addEventListener("keydown", hideQrcode);
 function hideQrcode(e) {
-  if (e.key === "c") {
+  if (e.key === shortcut.hideQrcode) {
     qrcode.style.display = "none";
-  } else if (e.code === "Space") {
-    takeImage(e);
-  } else if (e.key === "f") {
+  } else if (e.code === shortcut.takeImage) {
+    takeImage(e); 
+  } else if (e.key === shortcut.fullScreen) {
     if (document.fullscreenElement) {
       document.exitFullscreen();
     } else {
       document.body.requestFullscreen();
     }
+  } else if (e.key === shortcut.playVideo){
+    // show canvas
+    if (isShowingVideo) {
+      container.style.display = "flex";
+      recordVideo.style.display = "none";
+      container.focus()
+      recordVideo.pause();
+    } else {
+      container.style.display = "none";
+      recordVideo.style.display = "block";
+      recordVideo.play();
+    }
+    console.log("record video is " + recordVideo.paused ? "paused" : "playing")
+    isShowingVideo = !isShowingVideo
   }
 }
 
@@ -234,5 +262,5 @@ const logoImageData =
   "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMjUgMTEyIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9PC9zdHlsZT48L2RlZnM+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PGcgaWQ9IkxheWVyXzUiIGRhdGEtbmFtZT0iTGF5ZXIgNSI+PHJlY3Qgd2lkdGg9IjMyNSIgaGVpZ2h0PSIxMTIiLz48cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMjk4Ljk5IDI2LjUgMjM4Ljk5IDI2LjUgMjM3Ljk5IDI2LjUgMjM3Ljk5IDI3LjUgMjM3Ljk5IDM5LjUgMjM3Ljk5IDQwLjUgMjM4Ljk5IDQwLjUgMjk4Ljk5IDQwLjUgMjk5Ljk5IDQwLjUgMjk5Ljk5IDM5LjUgMjk5Ljk5IDI3LjUgMjk5Ljk5IDI2LjUgMjk4Ljk5IDI2LjUiLz48cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMjc4Ljk5IDYzLjgzIDI3OS45OSA2My44MyAyNzkuOTkgNjIuODMgMjc5Ljk5IDUwLjgzIDI3OS45OSA0OS44MyAyNzguOTkgNDkuODMgMjM4Ljk5IDQ5LjgzIDIzNy45OSA0OS44MyAyMzcuOTkgNTAuODMgMjM3Ljk5IDYyLjgzIDIzNy45OSA2My44MyAyMzguOTkgNjMuODMgMjc4Ljk5IDYzLjgzIi8+PHBvbHlnb24gY2xhc3M9ImNscy0xIiBwb2ludHM9IjIzOC45OSA3NC41IDIzNy45OSA3NC41IDIzNy45OSA3NS41IDIzNy45OSA4Ny41IDIzNy45OSA4OC41IDIzOC45OSA4OC41IDI5OC45OSA4OC41IDI5OS45OSA4OC41IDI5OS45OSA4Ny41IDI5OS45OSA3NS41IDI5OS45OSA3NC41IDI5OC45OSA3NC41IDIzOC45OSA3NC41Ii8+PHBvbHlnb24gY2xhc3M9ImNscy0xIiBwb2ludHM9IjE4My40NCA3NC41IDE4My40NCAyNy41IDE4My40NCAyNi41IDE4Mi40NCAyNi41IDE3MC40NCAyNi41IDE2OS40NCAyNi41IDE2OS40NCAyNy41IDE2OS40NCA4Ny41IDE2OS40NCA4OC41IDE3MC40NCA4OC41IDIyMC40NCA4OC41IDIyMS40NCA4OC41IDIyMS40NCA4Ny41IDIyMS40NCA3NS41IDIyMS40NCA3NC41IDIyMC40NCA3NC41IDE4My40NCA3NC41Ii8+PHBvbHlnb24gY2xhc3M9ImNscy0xIiBwb2ludHM9IjI2LjM1IDI2LjUgMjUuMzUgMjYuNSAyNS4zNSAyNy41IDI1LjM1IDM5LjUgMjUuMzUgNDAuNSAyNi4zNSA0MC41IDQ5LjM1IDQwLjUgNDkuMzUgODcuNSA0OS4zNSA4OC41IDUwLjM1IDg4LjUgNjIuMzUgODguNSA2My4zNSA4OC41IDYzLjM1IDg3LjUgNjMuMzUgNDAuNSA4Ni4zNSA0MC41IDg3LjM1IDQwLjUgODcuMzUgMzkuNSA4Ny4zNSAyNy41IDg3LjM1IDI2LjUgODYuMzUgMjYuNSAyNi4zNSAyNi41Ii8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMTI4LDI5YTQuNTgsNC41OCwwLDAsMC04LjE5LDBMOTMuMzksODEuODdhNC41OCw0LjU4LDAsMCwwLDQuMDksNi42M2g1Mi44M2E0LjU4LDQuNTgsMCwwLDAsNC4xLTYuNjNaIi8+PC9nPjwvZz48L3N2Zz4=";
 
 export function init() {
-  new P5(sketch, document.getElementById("container"));
+  new P5(sketch, container);
 }

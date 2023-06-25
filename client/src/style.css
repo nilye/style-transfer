@@ -106,3 +106,12 @@ body {
   border-radius: 4px;
   display: none;
 }
+
+
+#record-video {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: none;
+}
