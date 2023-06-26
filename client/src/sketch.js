@@ -229,7 +229,9 @@ function hideQrcode(e) {
   if (e.key === shortcut.hideQrcode) {
     qrcode.style.display = "none";
   } else if (e.code === shortcut.takeImage) {
-    if (isShowingVideo) return 
+    if (isShowingVideo) {
+      return e.stopPropagation()
+    } 
     takeImage(e); 
   } else if (e.key === shortcut.fullScreen) {
     if (document.fullscreenElement) {
@@ -247,9 +249,9 @@ function hideQrcode(e) {
     } else {
       container.style.display = "none";
       recordVideo.style.display = "block";
-      recordVideo.play();
+      recordVideo.focus()
+      // recordVideo.play();
     }
-    console.log("record video is " + recordVideo.paused ? "paused" : "playing")
     isShowingVideo = !isShowingVideo
   }
 }
