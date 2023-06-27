@@ -6,6 +6,8 @@ import request from "./request";
 
 const container = document.getElementById("container")
 const recordVideo = document.getElementById("record-video");
+let isShowingVideo = false
+
 let p5Canvas;
 let style;
 let video;
@@ -95,6 +97,8 @@ const draw = (p) => () => {
 };
 
 function gotResult(err, img) {
+  // if is showing video, stop style transfer
+  if (isShowingVideo) return 
   resultImg.attribute("src", img.src);
   setTimeout(() => {
     style.transfer(gotResult);
@@ -213,8 +217,6 @@ function uploadImage(uploadData) {
 }
 
 
-let isShowingVideo = false
-
 // shortcut keys
   
 const shortcut = {
@@ -224,15 +226,19 @@ const shortcut = {
   playVideo: "v"
 }
 
-document.addEventListener("keydown", hideQrcode);
+document.addEventListener("keydown", (e) => hideQrcode(e));
 function hideQrcode(e) {
   if (e.key === shortcut.hideQrcode) {
     qrcode.style.display = "none";
   } else if (e.code === shortcut.takeImage) {
+    e.preventDefault();
+    e.stopPropagation()
+    e.stopImmediatePropagation()
     if (isShowingVideo) {
-      return e.stopPropagation()
-    } 
-    takeImage(e); 
+      recordVideo.focus();
+    } else {
+      takeImage(e); 
+    }
   } else if (e.key === shortcut.fullScreen) {
     if (document.fullscreenElement) {
       document.exitFullscreen();
@@ -244,13 +250,17 @@ function hideQrcode(e) {
     if (isShowingVideo) {
       container.style.display = "flex";
       recordVideo.style.display = "none";
-      container.focus()
+      container.focus();
+      recordVideo.blur();
       recordVideo.pause();
-    } else {
+      style.transfer(gotResult);
+    } 
+    
+    // show video
+    else {
       container.style.display = "none";
       recordVideo.style.display = "block";
       recordVideo.focus()
-      // recordVideo.play();
     }
     isShowingVideo = !isShowingVideo
   }
