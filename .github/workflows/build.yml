@@ -12,17 +12,17 @@ jobs:
   build:
     
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: server
+
+    # defaults:
+    #   run:
+    #     working-directory: server
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run script
+      - name: Change directory
         run: |
-          echo "Starting script"
-          echo "Hello from $GITHUB_WORKING_DIRECTORY"
+          cd ./server
 
       - uses: actions/setup-node@v3
         with:
