@@ -13,18 +13,16 @@ jobs:
     
     runs-on: ubuntu-latest
 
-    # defaults:
-    #   run:
-    #     working-directory: server
+    defaults:
+      run:
+        working-directory: server
 
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
-        working-directory: ./server
         with:
           node-version: "18"
-          cache: 'npm'
 
       - name: Get version
         id: version
