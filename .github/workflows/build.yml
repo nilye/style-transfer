@@ -1,0 +1,65 @@
+
+node: Nestjs build
+
+on: 
+  push:
+    branches:
+      - release
+  pull_request:
+    branches:
+      - release
+
+defaults:
+  run:
+    working-directory: ./server
+
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18, 16, 14]
+      
+
+    steps:
+    - name: Checkout Git Source
+      uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Get version
+      id: version
+      uses: notiz-dev/github-action-json-property@release
+      with: 
+        path: "package.json"
+        prop_path: "version"
+
+    - name: Login to aliyun ACR
+      uses: aliyun/acr-login@v1
+      with:
+        login-server: https://registry.cn-shanghai.aliyuncs.com
+        username: "${{ secrets.DOCKER_REGISTRY_USERNAME }}"
+        password: "${{ secrets.DOCKER_REGISTRY_PASSWORD }}"
+
+    - name: Create SHA
+      id: sha
+      run: echo "short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+    - name: Build and push image
+      env:
+        IMAGE_TAG: ${{ steps.version.outputs.prop }}-${{ steps.sha.outputs.short }}
+        IMAGE_NAME: registry.cn-shanghai.aliyuncs.com/nilye/style-transfer
+      run: |
+        docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
+        docker push $IMAGE_NAME:$IMAGE_TAG
+        docker push $IMAGE_NAME:latest
+    
+
+    
