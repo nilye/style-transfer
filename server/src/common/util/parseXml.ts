@@ -7,7 +7,7 @@ export async function parseXml(data) {
     if (json.xml) {
       json = json.xml;
     }
-    Object.keys(json).forEach(key => {
+    Object.keys(json).forEach((key) => {
       if (Array.isArray(json[key]) && json[key].length === 1) {
         json[key] = json[key][0];
       }

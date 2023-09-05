@@ -6,6 +6,7 @@ import {
   HttpCode,
   Post,
   Query,
+  Req,
 } from '@nestjs/common';
 import { parseXml } from 'src/common/util/parseXml';
 
@@ -34,8 +35,14 @@ export class WxController {
   @Post('callback')
   @HttpCode(200)
   @Header('Content-Type', 'application/xml')
-  async receiveWxEvent(@Body() body: any) {
-    body = await parseXml(body);
+  async receiveWxEvent(@Req() req) {
+    console.log('raw body to string', req.rawBody.toString());
+    console.log('raw raw body', req.rawBody);
+    console.log('raw body', req.body);
+
+    const body = await parseXml(req.rawBody.toString());
+
+    console.log('parsed XML body', body);
 
     const { MsgType, Event, EventKey } = body;
     if (MsgType === 'event' && (Event === 'subscribe' || Event === 'SCAN')) {
