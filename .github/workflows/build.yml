@@ -16,46 +16,40 @@ jobs:
       run:
         working-directory: ./server
 
-    strategy:
-      matrix:
-        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: 'npm'
+
+      - name: Get version
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with: 
+          path: "package.json"
+          prop_path: "version"
+
+      - name: Login to aliyun ACR
+        uses: aliyun/acr-login@v1
+        with:
+          login-server: https://registry.cn-shanghai.aliyuncs.com
+          username: "${{ secrets.DOCKER_REGISTRY_USERNAME }}"
+          password: "${{ secrets.DOCKER_REGISTRY_PASSWORD }}"
+
+      - name: Create SHA
+        id: sha
+        run: echo "short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Build and push image
+        env:
+          IMAGE_TAG: ${{ steps.version.outputs.prop }}-${{ steps.sha.outputs.short }}
+          IMAGE_NAME: registry.cn-shanghai.aliyuncs.com/nilye/style-transfer
+        run: |
+          docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
+          docker push $IMAGE_NAME:$IMAGE_TAG
+          docker push $IMAGE_NAME:latest
       
 
-    steps:
-      uses: actions/checkout@v3
-
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-
-    - name: Get version
-      id: version
-      uses: notiz-dev/github-action-json-property@release
-      with: 
-        path: "package.json"
-        prop_path: "version"
-
-    - name: Login to aliyun ACR
-      uses: aliyun/acr-login@v1
-      with:
-        login-server: https://registry.cn-shanghai.aliyuncs.com
-        username: "${{ secrets.DOCKER_REGISTRY_USERNAME }}"
-        password: "${{ secrets.DOCKER_REGISTRY_PASSWORD }}"
-
-    - name: Create SHA
-      id: sha
-      run: echo "short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-
-    - name: Build and push image
-      env:
-        IMAGE_TAG: ${{ steps.version.outputs.prop }}-${{ steps.sha.outputs.short }}
-        IMAGE_NAME: registry.cn-shanghai.aliyuncs.com/nilye/style-transfer
-      run: |
-        docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
-        docker push $IMAGE_NAME:$IMAGE_TAG
-        docker push $IMAGE_NAME:latest
-    
-
-    
+      
