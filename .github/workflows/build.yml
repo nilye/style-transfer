@@ -9,31 +9,28 @@ on:
     branches:
       - release
 
-defaults:
-  run:
-    shell: bash
-    working-directory: server
-
-
 jobs: 
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./server
+
 
     strategy:
-      fail-fast: false
       matrix:
-        node-version: [18, 16, 14]
+        node-version: [18.x]
       
 
     steps:
-    - name: Checkout Git Source
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
 
     - name: Get version
       id: version
