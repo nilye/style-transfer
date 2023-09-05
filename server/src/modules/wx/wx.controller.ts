@@ -51,7 +51,7 @@ export class WxController {
         }
       }
       if (replyXml) {
-        return replyXml;
+        return replyXml.trim();
       }
     }
 
