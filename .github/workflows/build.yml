@@ -19,6 +19,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Run script
+        run: |
+          echo "Starting script"
+          echo "Hello from $GITHUB_WORKING_DIRECTORY"
+
       - uses: actions/setup-node@v3
         with:
           node-version: "18"
