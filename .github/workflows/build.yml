@@ -47,7 +47,9 @@ jobs:
           IMAGE_TAG: ${{ steps.version.outputs.prop }}-${{ steps.sha.outputs.short }}
           IMAGE_NAME: registry.cn-shanghai.aliyuncs.com/nilye/style-transfer
         run: |
-          docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest ./server
+          pwd
+          ls
+          docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
           docker push $IMAGE_NAME:$IMAGE_TAG
           docker push $IMAGE_NAME:latest
       
