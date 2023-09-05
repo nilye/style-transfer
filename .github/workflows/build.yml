@@ -11,7 +11,8 @@ on:
 
 defaults:
   run:
-    working-directory: ./server
+    shell: bash
+    working-directory: server
 
 
 jobs: 
