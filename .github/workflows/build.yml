@@ -29,9 +29,8 @@ jobs:
       - name: Get version
         id: version
         uses: notiz-dev/github-action-json-property@release
-        working-directory: ./server
         with: 
-          path: "package.json"
+          path: "./server/package.json"
           prop_path: "version"
 
       - name: Login to aliyun ACR
@@ -49,9 +48,8 @@ jobs:
         env:
           IMAGE_TAG: ${{ steps.version.outputs.prop }}-${{ steps.sha.outputs.short }}
           IMAGE_NAME: registry.cn-shanghai.aliyuncs.com/nilye/style-transfer
-        working-directory: ./server
         run: |
-          docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
+          docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest ./server
           docker push $IMAGE_NAME:$IMAGE_TAG
           docker push $IMAGE_NAME:latest
       
