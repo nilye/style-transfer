@@ -1,5 +1,5 @@
 
-node: Nestjs build
+name: Nestjs build
 
 on: 
   push:
