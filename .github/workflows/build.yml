@@ -23,6 +23,7 @@ jobs:
       - name: Change directory
         run: |
           cd ./server
+          pwd
 
       - uses: actions/setup-node@v3
         with:
