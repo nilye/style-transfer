@@ -20,21 +20,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Change directory
-        run: |
-          cd ./server
-          pwd
-          ls
-
       - uses: actions/setup-node@v3
+        working-directory: ./server
         with:
           node-version: "18"
+          cache: 'npm'
 
       - name: Get version
         id: version
         uses: notiz-dev/github-action-json-property@release
+        working-directory: ./server
         with: 
-          path: "./server/package.json"
+          path: "package.json"
           prop_path: "version"
 
       - name: Login to aliyun ACR
@@ -52,6 +49,7 @@ jobs:
         env:
           IMAGE_TAG: ${{ steps.version.outputs.prop }}-${{ steps.sha.outputs.short }}
           IMAGE_NAME: registry.cn-shanghai.aliyuncs.com/nilye/style-transfer
+        working-directory: ./server
         run: |
           docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
           docker push $IMAGE_NAME:$IMAGE_TAG
