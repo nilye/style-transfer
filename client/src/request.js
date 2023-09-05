@@ -47,38 +47,38 @@ function getWxQrcode(objectName) {
     .then((json) => json.data.url);
 }
 
-function login() {
-  const bucket = window.bucket || "tale-style-transfer-dev";
-  const client = window.client || "localhost";
+// function login() {
+//   const bucket = window.bucket || "tale-style-transfer-dev";
+//   const client = window.client || "localhost";
 
-  fetch("/api/auth/sign", {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      bucket,
-      client,
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      const token = data.data.token;
-      Cookies.set("token", token, { httpOnly: false });
-      headers.Authorization = token;
-    });
-}
+//   fetch("/api/auth/sign", {
+//     method: "POST",
+//     headers,
+//     body: JSON.stringify({
+//       bucket,
+//       client,
+//     }),
+//   })
+//     .then((res) => res.json())
+//     .then((data) => {
+//       const token = data.data.token;
+//       Cookies.set("token", token, { httpOnly: false });
+//       headers.Authorization = token;
+//     });
+// }
 
-(function init() {
-  const token = Cookies.get("token");
-  if (!token) {
-    login();
-  }
-})();
+// (function init() {
+//   const token = Cookies.get("token");
+//   if (!token) {
+//     login();
+//   }
+// })();
 
 //
-window.login;
+// window.login;
 
 const request = {
-  login,
+  // login,
   putImage,
   createUpload,
   getWxQrcode,
