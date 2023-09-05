@@ -29,7 +29,7 @@ export class AllExceptionFilter implements ExceptionFilter {
       },
     };
 
-    this.logger.error(exception, exception.toString(), 'AllExceptionFilter');
+    this.logger.error(exception, exception.stack, 'AllExceptionFilter');
 
     response.status(status).json(obj);
   }
