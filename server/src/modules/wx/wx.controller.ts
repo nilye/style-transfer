@@ -6,11 +6,7 @@ import {
   HttpCode,
   Post,
   Query,
-  RawBodyRequest,
-  Req,
 } from '@nestjs/common';
-import { Request } from 'express';
-import { parseXml } from 'src/common/util/parseXml';
 
 import { CreateQrCodeDto } from './dto/createQrCode.dto';
 import { WxService } from './wx.service';
@@ -37,13 +33,7 @@ export class WxController {
   @Post('callback')
   @HttpCode(200)
   @Header('Content-Type', 'application/xml')
-  async receiveWxEvent(@Req() req: RawBodyRequest<Request>) {
-    // console.log('raw body to string', req.rawBody.toString());
-    // console.log('raw raw body', req.rawBody);
-    console.log('raw body', req.body);
-
-    const body = await parseXml(req.body);
-
+  async receiveWxEvent(@Body('xml') body: any) {
     console.log('parsed XML body', body);
 
     const { MsgType, Event, EventKey } = body;
