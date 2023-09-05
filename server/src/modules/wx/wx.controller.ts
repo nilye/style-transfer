@@ -38,11 +38,11 @@ export class WxController {
   @HttpCode(200)
   @Header('Content-Type', 'application/xml')
   async receiveWxEvent(@Req() req: RawBodyRequest<Request>) {
-    console.log('raw body to string', req.rawBody.toString());
-    console.log('raw raw body', req.rawBody);
+    // console.log('raw body to string', req.rawBody.toString());
+    // console.log('raw raw body', req.rawBody);
     console.log('raw body', req.body);
 
-    const body = await parseXml(req.rawBody.toString());
+    const body = await parseXml(req.body);
 
     console.log('parsed XML body', body);
 
