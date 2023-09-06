@@ -16,7 +16,7 @@ export class TransformInterceptor implements NestInterceptor {
 
     return next.handle().pipe(
       map((data) => {
-        if (contentType !== 'application/json') {
+        if (contentType === 'application/xml') {
           return data;
         }
 
